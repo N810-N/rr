@@ -1,0 +1,2 @@
+class SleepCheck < ApplicationRecord
+end

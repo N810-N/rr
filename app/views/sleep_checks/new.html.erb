@@ -1,0 +1,43 @@
+<h2>あなたの睡眠診断</h2>
+
+<%= form_with url: sleep_checks_path, method: :post, local: true do |f| %>
+  <h3>リズム（自律神経や生活リズム）</h3>
+  <% rhythm_questions = [
+      "起きる時間や寝る時間が日によってバラバラだ",
+      "寝る直前までスマホやパソコンを使っている",
+      "朝日を浴びる習慣があまりない"
+  ] %>
+  <% rhythm_questions.each_with_index do |q, i| %>
+    <p><%= q %></p>
+    <label><%= radio_button_tag "answers[#{i}]", 1 %> はい</label>
+    <label><%= radio_button_tag "answers[#{i}]", 0 %> いいえ</label>
+  <% end %>
+
+  <h3>質（睡眠の深さ・途中覚醒など）</h3>
+  <% quality_questions = [
+      "夜中に2回以上目が覚める",
+      "寝つくまでに30分以上かかる",
+      "朝に疲労感や強い眠気がある"
+  ] %>
+  <% quality_questions.each_with_index do |q, i| %>
+    <p><%= q %></p>
+    <label><%= radio_button_tag "answers[#{i + rhythm_questions.size}]", 1 %> はい</label>
+    <label><%= radio_button_tag "answers[#{i + rhythm_questions.size}]", 0 %> いいえ</label>
+  <% end %>
+
+  <h3>量（睡眠時間の十分さ）</h3>
+  <% quantity_questions = [
+      "睡眠時間が6時間未満の日が多い",
+      "休日に平日より2時間以上長く寝てしまう",
+      "日中に眠気や集中力の低下を感じることが多い"
+  ] %>
+  <% quantity_questions.each_with_index do |q, i| %>
+    <p><%= q %></p>
+    <label><%= radio_button_tag "answers[#{i + rhythm_questions.size + quality_questions.size}]", 1 %> はい</label>
+    <label><%= radio_button_tag "answers[#{i + rhythm_questions.size + quality_questions.size}]", 0 %> いいえ</label>
+  <% end %>
+
+  <br>
+  <%= f.submit "診断する", class: "btn btn-primary" %>
+<% end %>
+
